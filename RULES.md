@@ -5,6 +5,8 @@
 Configuration option schemas are written with [Zod](https://github.com/colinhacks/zod).
 
 - [ban-unbounded-string-type](#ban-unbounded-string-type)
+- [enum-name-pascal-case](#enum-name-pascal-case)
+- [enum-value-snake-case](#enum-value-snake-case)
 - [field-name-camel-case](#field-name-camel-case)
 - [field-name-mapping-snake-case](#field-name-mapping-snake-case)
 - [field-order](#field-order)
@@ -61,6 +63,96 @@ model User {
 // good
 model User {
   id String @db.Text
+}
+```
+
+## enum-name-pascal-case
+
+Checks that enum names are in PascalCase.
+
+### Configuration
+
+```ts
+z.object({
+  allowList: z.array(z.union([z.string(), z.instanceof(RegExp)])).optional(),
+  trimPrefix: z
+    .union([
+      z.string(),
+      z.instanceof(RegExp),
+      z.array(z.union([z.string(), z.instanceof(RegExp)])),
+    ])
+    .optional(),
+}).strict();
+```
+
+### Examples
+
+#### Default
+
+```prisma
+// good
+enum ExampleOptions {
+  value1
+}
+
+// bad
+enum exampleOptions {
+  value1
+}
+
+// bad
+enum example_options {
+ value1
+}
+```
+
+## enum-value-snake-case
+
+Checks that enum values are in snake_case.
+
+### Configuration
+
+```ts
+z.object({
+  allowList: z.array(z.union([z.string(), z.instanceof(RegExp)])).optional(),
+  trimPrefix: z
+    .union([
+      z.string(),
+      z.instanceof(RegExp),
+      z.array(z.union([z.string(), z.instanceof(RegExp)])),
+    ])
+    .optional(),
+}).strict();
+```
+
+### Examples
+
+#### Default
+
+```prisma
+// good
+enum Example {
+  value
+}
+
+// good
+enum Example {
+  value_1
+}
+
+// bad
+enum Example {
+  Value
+}
+
+// bad
+enum Example {
+  VALUE
+}
+
+// bad
+enum Example {
+  camelCase
 }
 ```
 
