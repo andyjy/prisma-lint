@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Add new rules `model-name-pascal-case` and `field-name-camel-case`
+- Add new rule `ban-unbounded-string-type`
 
 ## 0.5.0 (2024-05-01)
 
